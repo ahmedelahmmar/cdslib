@@ -31,14 +31,14 @@ typedef struct node
  * @param ppxHead Pointer to the pointer to the head of the list.
  * @param ulValue Value to be stored in the node.
  */
-void vListCreate(list_t **ppxHead, const uint32_t ulValue);
+void vListCreateNode(list_t **ppxHead, const uint32_t ulValue);
 
 /**
  * @brief Destroys the linked list and deallocates memory.
  *
  * @param ppxHead Pointer to the pointer to the head of the list.
  */
-void vListDestroy(list_t **ppxHead);
+void vListDestroyList(list_t **ppxHead);
 
 /**
  * @brief Inserts a new node with the given value at the specified index in the list.
@@ -47,7 +47,7 @@ void vListDestroy(list_t **ppxHead);
  * @param ulIndex Index at which the new node should be inserted.
  * @param ulValue Value to be stored in the new node.
  */
-void vListInsert(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValue);
+void vListInsertNode(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValue);
 
 /**
  * @brief Removes the node at the specified index from the list.
@@ -55,7 +55,7 @@ void vListInsert(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValu
  * @param ppxHead Pointer to the pointer to the head of the list.
  * @param ulIndex Index of the node to be removed.
  */
-void vListRemoveIndex(list_t **ppxHead, const uint32_t ulIndex);
+void vListRemoveNodeAtIndex(list_t **ppxHead, const uint32_t ulIndex);
 
 /**
  * @brief Removes the first node with the given value from the list.
@@ -63,7 +63,7 @@ void vListRemoveIndex(list_t **ppxHead, const uint32_t ulIndex);
  * @param ppxHead Pointer to the pointer to the head of the list.
  * @param ulValue Value of the node to be removed.
  */
-void vListRemoveValue(list_t **ppxHead, const uint32_t ulValue);
+void vListRemoveNodeWithValue(list_t **ppxHead, const uint32_t ulValue);
 
 /**
  * @brief Returns a pointer to the node at the specified index in the list.
@@ -72,7 +72,7 @@ void vListRemoveValue(list_t **ppxHead, const uint32_t ulValue);
  * @param ulIndex Index of the node to be retrieved.
  * @return Pointer to the node at the specified index, or NULL if the index is out of range.
  */
-list_t* pxListGetIndex(list_t **ppxHead, const uint32_t ulIndex);
+list_t* pxListGetNodeAtIndex(list_t **ppxHead, const uint32_t ulIndex);
 
 /**
  * @brief Returns a pointer to the first node with the given value in the list.
@@ -81,6 +81,6 @@ list_t* pxListGetIndex(list_t **ppxHead, const uint32_t ulIndex);
  * @param ulValue Value of the node to be retrieved.
  * @return Pointer to the first node with the given value, or NULL if the value is not found in the list.
  */
-list_t* pxListGetValue(list_t **ppxHead, const uint32_t ulValue);
+list_t* pxListGetNodeWithValue(list_t **ppxHead, const uint32_t ulValue);
 
 #endif /* _LIST_H_ */

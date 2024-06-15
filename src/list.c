@@ -1,14 +1,16 @@
 /**
- * @file list.h
+ * @file list.c
  * @author Ahmed Alaa
  * @date 1 Mar 2024
  */
 
 
+
 #include "list.h"
 
 
-void vListCreate(list_t **ppxHead, const uint32_t ulValue)
+
+void vListCreateNode(list_t **ppxHead, const uint32_t ulValue)
 {
     if (ppxHead)
     {
@@ -24,12 +26,19 @@ void vListCreate(list_t **ppxHead, const uint32_t ulValue)
 
 
 
-void vListDestroy(list_t **ppxHead)
+void vListDestroyList(list_t **ppxHead)
 {   
     if (ppxHead && *ppxHead)
     {
         list_t *pxPrevious = NULL;
         list_t *pxCurrent = *ppxHead;
+
+        if (NULL == pxCurrent->pxNext)
+        {
+            free(pxCurrent);
+            *ppxHead = NULL;
+            return;
+        }
 
         while (pxCurrent->pxNext)
         {
@@ -40,22 +49,23 @@ void vListDestroy(list_t **ppxHead)
         }
 
         free(pxCurrent);
+        *ppxHead = NULL;
     }
 }   
 
 
 
-void vListInsert(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValue)
+void vListInsertNode(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValue)
 {
     if (ppxHead)
     {
         if (*ppxHead)
         {
-            list_t *pxPrevious = (0 == ulIndex) ? NULL : pxListGetIndex(ppxHead, ulIndex - 1);
+            list_t *pxPrevious = (0 == ulIndex) ? NULL : pxListGetNodeAtIndex(ppxHead, ulIndex - 1);
             list_t *pxNew;
             
             /* Allocate memory for a new node and let pxNew point to it */
-            vListCreate(&pxNew, ulValue);
+            vListCreateNode(&pxNew, ulValue);
 
             if (pxNew)
             {
@@ -76,17 +86,17 @@ void vListInsert(list_t **ppxHead, const uint32_t ulIndex, const uint32_t ulValu
         else
         {
             /* The program reaches this block if tried to insert a node into an empty list */
-            vListCreate(ppxHead, ulValue);
-        }
+            vListCreateNode(ppxHead, ulValue);
+        } 
     }
 }
 
 
-void vListRemoveIndex(list_t **ppxHead, const uint32_t ulIndex)
+void vListRemoveNodeAtIndex(list_t **ppxHead, const uint32_t ulIndex)
 {
     if (ppxHead && *ppxHead)
     {
-        list_t *pxPrevious = (0 == ulIndex) ? NULL : pxListGetIndex(ppxHead, ulIndex - 1);
+        list_t *pxPrevious = (0 == ulIndex) ? NULL : pxListGetNodeAtIndex(ppxHead, ulIndex - 1);
         list_t *pxCurrent = (NULL == pxPrevious) ? *ppxHead : pxPrevious->pxNext;
 
         if (pxPrevious)
@@ -103,7 +113,7 @@ void vListRemoveIndex(list_t **ppxHead, const uint32_t ulIndex)
 }
 
 
-void vListRemoveValue(list_t **ppxHead, const uint32_t ulValue)
+void vListRemoveNodeWithValue(list_t **ppxHead, const uint32_t ulValue)
 {
     if (ppxHead && *ppxHead)
     {
@@ -133,7 +143,7 @@ void vListRemoveValue(list_t **ppxHead, const uint32_t ulValue)
 }
 
 
-list_t* pxListGetIndex(list_t **ppxHead, const uint32_t ulIndex)
+list_t* pxListGetNodeAtIndex(list_t **ppxHead, const uint32_t ulIndex)
 {   
     list_t *pxReturn = NULL;
 
@@ -154,7 +164,7 @@ list_t* pxListGetIndex(list_t **ppxHead, const uint32_t ulIndex)
 }
 
 
-list_t* pxListGetValue(list_t **ppxHead, const uint32_t ulValue)
+list_t* pxListGetNodeWithValue(list_t **ppxHead, const uint32_t ulValue)
 {
     list_t *pxReturn = NULL;
 
