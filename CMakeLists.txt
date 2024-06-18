@@ -3,10 +3,11 @@ project(cds)
 
 file(GLOB_RECURSE TEST_FILES ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB_RECURSE ENTRY_FILE ${PROJECT_SOURCE_DIR}/main.c)
 
 set(CMAKE_BINARY_DIR ${PROJECT_SOURCE_DIR}/build)
 
-include_directories(${PROJECT_SOURCE_DIR}/inc)
+include_directories(${PROJECT_SOURCE_DIR}/src/inc)
 
 # CppUTest
 include(FetchContent)
@@ -19,7 +20,7 @@ FetchContent_Declare(
 set(TESTS OFF CACHE BOOL "Switch off CppUTest Test build")
 FetchContent_MakeAvailable(CppUTest)
 
-add_executable(run main.c ${SRC_FILES})
+add_executable(run ${ENTRY_FILE} ${SRC_FILES})
 add_executable(test ${SRC_FILES} ${TEST_FILES})
 
 target_link_libraries(
