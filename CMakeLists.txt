@@ -7,7 +7,7 @@ file(GLOB_RECURSE ENTRY_FILE ${PROJECT_SOURCE_DIR}/main.c)
 
 set(CMAKE_BINARY_DIR ${PROJECT_SOURCE_DIR}/build)
 
-include_directories(${PROJECT_SOURCE_DIR}/src/inc)
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # CppUTest
 include(FetchContent)
